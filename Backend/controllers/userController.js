@@ -201,5 +201,64 @@ const userController = {
       } catch (error) {
         res.status(500).json({ message: "Server error" });
       }
-    }
-}
+    },
+    verifyOTPRegister: async (req, res) => {
+      const inputOTP = req.body.inputOTP;
+
+      const encryptedOTP  = req.query.otp;
+      const encryptedUserName  = req.query.username;
+      const encryptedFirstName  = req.query.userfirstname;
+      const encryptedLastName  = req.query.userlastname;
+      const encryptedUserType  = req.query.usertype;
+      const encryptedUserPassword  = req.query.password;
+      const encryptedUserEmail  = req.query.email;
+
+      var decodedOTP
+      var decodedUserName
+      var decodedFirstName
+      var decodedLastName
+      var decodedUserType
+      var decodedUserPassword
+      var decodedUserEmail
+
+      if(encryptedUserEmail && encryptedUserPassword && encryptedUserType && 
+        encryptedLastName && encryptedFirstName && encryptedUserName && encryptedOTP) {
+          decodedOTP = jwt.verify(encryptedOTP, secretKey);
+          decodedUserName = jwt.verify(encryptedUserName, secretKey);
+          decodedFirstName = jwt.verify(encryptedFirstName, secretKey);
+          decodedLastName = jwt.verify(encryptedLastName, secretKey);
+          decodedUserType = jwt.verify(encryptedUserType, secretKey);
+          decodedUserPassword = jwt.verify(encryptedUserPassword, secretKey);
+          decodedUserEmail = jwt.verify(encryptedUserEmail, secretKey);
+      }
+
+      if(!inputOTP){
+        res.status(400).send("Input OTP can't be empty");
+      }
+
+      if(decodedOTP.code == inputOTP){          
+        const userName = decodedUserName.userName;
+        const userType = decodedUserType.userType;
+        const userFirstName = decodedFirstName.firstName;
+        const userLastName = decodedLastName.lastName;
+        const userEmail = decodedUserEmail.email;
+
+        const newUser = new userModel({
+          UserName: userName,
+          password: decodedUserPassword.password,
+          email: userEmail,
+          firstName: userFirstName,
+          lastName: userLastName,
+          userType
+        });
+        await newUser.save();
+
+        return res.status(200).send("User registered successfully");
+      }
+      return res.status(400).send("Incorrect OTP");
+
+    },
+
+};
+
+module.exports = userController;

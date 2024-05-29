@@ -25,40 +25,20 @@ const io = socketIO(server, {
 }).listen(4000);
 module.exports= {io};
 
-const authRouter = require("./Routes/auth");
-app.use("/api/auth", authRouter);
+// const authRouter = require("./Routes/auth");
+// app.use("/api/auth", authRouter);
+
+const usersRouter = require("./Routes/user");
+app.use('/api/users', usersRouter);
+
+const examsRouter = require("./Routes/exam");
+app.use('/api/exams', examsRouter);
 
 const authenticationMiddleware = require("./Middleware/authenticationMiddleware");
 app.use(authenticationMiddleware);
 
-const ticketRouter = require("./Routes/Ticket");
-app.use('/api/ticket', ticketRouter);
 
-const knowledgeBaseRouter = require("./Routes/knowledgeBase");
-app.use('/api',knowledgeBaseRouter);
-
-const liveChat = require("./Routes/LiveChatRouter");
-app.use("/api/chat", liveChat)
-
-
-const customizationRouter = require("./Routes/customization");
-app.use('/api/customization', customizationRouter);
-
-const workflowRouter = require("./Routes/workFlow");
-app.use('/api/workflow',workflowRouter);
-
-const usersRouter = require("./Routes/users");
-app.use('/api/users', usersRouter);
-const backupRouter = require("./Routes/backup");
-app.use('/api/backup', backupRouter);
-const reportRouter = require("./Routes/Report");
-app.use('/api/report', reportRouter);
-
-
-
-
-//const db_url = `mongodb+srv://Mariam:LW7ZrU0N8A25kWqB@cluster0.qebr03m.mongodb.net/Software`;
-const db_url = 'mongodb://127.0.0.1:27017/LocalHelpDesk';
+const db_url = 'mongodb://127.0.0.1:27017/Exam_center';
 
 const connectionOptions = {
   useUnifiedTopology: true,

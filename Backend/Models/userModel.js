@@ -9,7 +9,7 @@ const userschema = new mongoose.Schema(
         },
         userType: {
             type: String,
-            enum:[ "Manager", "Admin", "User", "Agent"],
+            enum:[ "Admin", "User", "ExamProvider"],
             required: true,
         },
         password: {
@@ -20,7 +20,7 @@ const userschema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unqie:true
+            unique:true
         },
         firstName: 
         { type: String,

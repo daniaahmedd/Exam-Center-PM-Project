@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controller/userController");
+const userController = require("../controllers/userController");
 const authorizationMiddleware=require('../Middleware/authorizationMiddleware')
 
 // * Send OTP Register
-router.post("/",  authorizationMiddleware(['Admin']), userController.registerUser);
+router.post("/", userController.registerUser);
 
 module.exports = router;

@@ -1,0 +1,264 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.div {
+  background-color: #fff;
+  display: flex;
+  padding-bottom: 41px;
+  flex-direction: column;
+  font-weight: 400;
+}
+.div-2 {
+  background-color: #43ab32;
+  display: flex;
+  gap: 16px;
+  font-size: 41px;
+  color: #fff;
+  padding: 6px 20px;
+  position: fixed;
+  z-index: 10000000;
+  width: 100%;
+}
+@media (max-width: 991px) {
+  .div-2 {
+    flex-wrap: wrap;
+    font-size: 40px;
+  }
+}
+.img {
+  aspect-ratio: 1.1;
+  object-fit: auto;
+  object-position: center;
+  width: 79px;
+}
+.div-3 {
+  font-family: Inter, sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+}
+@media (max-width: 991px) {
+  .div-3 {
+    max-width: 100%;
+    font-size: 40px;
+  }
+}
+.div-4 {
+  background-color: #d9d9d9;
+  min-height: 288px;
+  width: 100%;
+}
+@media (max-width: 991px) {
+  .div-4 {
+    max-width: 100%;
+  }
+}
+.div-5 {
+  background-color: #d9d9d9;
+  display: flex;
+  width: 354px;
+  max-width: 100%;
+  padding-bottom: 8px;
+  flex-direction: column;
+  align-items: start;
+  font-size: 32px;
+  color: rgba(0, 0, 0, 0.58);
+  margin: 15px 0 0 90px;
+}
+@media (max-width: 991px) {
+  .div-5 {
+    margin-left: 10px;
+  }
+}
+.div-6 {
+  font-family: Inter, sans-serif;
+  background-color: #d9d9d9;
+  align-self: stretch;
+  z-index: 10;
+  align-items: start;
+  color: #000;
+  justify-content: center;
+  padding: 13px 11px;
+}
+@media (max-width: 991px) {
+  .div-6 {
+    padding-right: 20px;
+  }
+}
+.div-7 {
+  display: flex;
+  gap: 5px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .div-7 {
+    white-space: initial;
+  }
+}
+.img-2 {
+  width: 50px;
+  height: 69px;
+  margin: 6px;
+}
+.div-8 {
+  font-family: Inter, sans-serif;
+  margin: auto 0;
+}
+.div-9 {
+  display: flex;
+  margin-top: 13px;
+  gap: 6px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .div-9 {
+    white-space: initial;
+  }
+}
+.img-3 {
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 38px;
+}
+.div-10 {
+  font-family: Inter, sans-serif;
+  margin: auto 0;
+}
+.div-11 {
+  display: flex;
+  margin-top: 12px;
+  gap: 6px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .div-11 {
+    white-space: initial;
+  }
+}
+.img-4 {
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 35px;
+}
+.div-12 {
+  font-family: Inter, sans-serif;
+  margin: auto 0;
+}
+.div-13 {
+  align-self: stretch;
+  display: flex;
+  margin-top: 11px;
+  margin-left: 11px;
+  flex-direction: column;
+}
+.div-14 {
+  display: flex;
+  gap: 9px;
+}
+.img-5 {
+  aspect-ratio: 0.75;
+  object-fit: auto;
+  object-position: center;
+  width: 27px;
+}
+.div-15 {
+  font-family: Inter, sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+}
+.div-16 {
+  display: flex;
+  margin-top: 13px;
+  gap: 6px;
+  font-size: 24px;
+}
+.img-6 {
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 33px;
+}
+.div-17 {
+  font-family: Inter, sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+}
+.div-18 {
+  display: flex;
+  margin-top: 11px;
+  gap: 5px;
+  font-size: 24px;
+}
+.img-7 {
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 33px;
+}
+.div-19 {
+  font-family: Inter, sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+}
+.div-20 {
+  font-family: Inter, sans-serif;
+  border-radius: 40px;
+  border-color: rgba(239, 150, 132, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: #43ab32;
+  align-self: center;
+  margin-top: 17px;
+  color: #fff;
+  font-weight: 500;
+  white-space: nowrap;
+  justify-content: center;
+  padding: 22px 56px;
+}
+@media (max-width: 991px) {
+  .div-20 {
+    white-space: initial;
+    padding: 0 20px;
+  }
+}
