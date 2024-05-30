@@ -9,4 +9,7 @@ router.post("/examprovider", examController.addProvider);
 // * Add new exam (held by exam center)
 router.post("/new/examcenter", examController.addNewExam);
 
+// * Get all exams
+router.post("/getExams", examController.getExams);
+
 module.exports = router;

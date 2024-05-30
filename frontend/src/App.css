@@ -51,9 +51,6 @@
   font-size: 41px;
   color: #fff;
   padding: 6px 20px;
-  position: fixed;
-  z-index: 10000000;
-  width: 100%;
 }
 @media (max-width: 991px) {
   .div-2 {
@@ -83,6 +80,7 @@
   background-color: #d9d9d9;
   min-height: 288px;
   width: 100%;
+  margin-top: -41px;
 }
 @media (max-width: 991px) {
   .div-4 {
@@ -163,7 +161,7 @@
 }
 .div-11 {
   display: flex;
-  margin-top: 12px;
+  margin-top: 13px;
   gap: 6px;
   white-space: nowrap;
 }
@@ -190,6 +188,7 @@
   flex-direction: column;
 }
 .div-14 {
+  margin-top: 13px;
   display: flex;
   gap: 9px;
 }
@@ -225,7 +224,7 @@
 }
 .div-18 {
   display: flex;
-  margin-top: 11px;
+  margin-top: 13px;
   gap: 5px;
   font-size: 24px;
 }
@@ -262,3 +261,11 @@
     padding: 0 20px;
   }
 }
+.addImg{
+  width: 41px;
+  top: 17px;
+  margin: 6px;
+  right: 52px;
+  position: absolute;
+}
+

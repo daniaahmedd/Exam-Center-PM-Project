@@ -6,7 +6,6 @@ const examschema = new mongoose.Schema(
             type: String,
             minLength: 3,
             maxLength: 30,
-            unique: true
         },
         ExamProvider: {
             type: String,

@@ -67,6 +67,13 @@ const examController = {
             return res.status(200).send("Exam added successfully");
         
     },
+    getExams: async (req, res) => {
+        const existingExam = await examModel.find();
+
+        console.log(existingExam)
+
+        return res.status(200).send("Exam added successfully");
+    },
     
     
 }
