@@ -1,5 +1,5 @@
 import Navbar from "../components/adminNavbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from 'react-bootstrap';
 import '../styles/adminVerification.css';
@@ -45,6 +45,31 @@ export default function AdminVerification(){
         }
     ])
 
+    async function handleVerify(id,s){
+        await axios.put('http://localhost:3000/api/users/verify',{
+            userID:id,
+            status: s
+        }
+            , {
+            withCredentials: true
+        });
+    }
+
+    async function getUsers(){
+        const response = await axios.get('http://localhost:3000/api/users/users', {
+            withCredentials: true
+        });
+        setUsers(response.data)
+    }
+
+    // useEffect(()=>{
+    //     getUsers()
+    
+    // },[])  
+    //commented it as it is useless for now as i am using a static array of users,
+    // as we still didnt connect the project as a whole and we dont use login or registeration for now
+    // so wont use getUers() and handleVerify() for now
+
     return(
         <>
         <Navbar/>
@@ -68,6 +93,7 @@ export default function AdminVerification(){
                         }
                         return User
                     }))
+                    // handleVerify(user.ID,'Approved') commented for later use
                 }} >Verify</Button>
                 <Button className ='reject--button' variant="danger" onClick={()=>{
                     setUsers(users.map((User) => {
@@ -76,6 +102,7 @@ export default function AdminVerification(){
                         }
                         return User
                     }))
+                    // handleVerify(user.ID,'Rejected') commented for later use
                 }} >Reject</Button>
                 </div>
                 </div>

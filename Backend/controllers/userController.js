@@ -258,7 +258,31 @@ const userController = {
       return res.status(400).send("Incorrect OTP");
 
     },
+    getAllUsers: async (req, res) => { //endpoint to get all unverified user to allow the admin to approve or reject them
+      try {
+        const users = await userModel.find();
 
+        const filteredUsers = users.filter(user => user.verificationStatus === null);
+
+        res.status(200).send(filteredUsers);
+      } catch (error) {
+        res.status(500).json({ message: "Server error" });
+      }
+    },
+
+    verifyUser: async (req, res) => { //to update the registered user verification status
+      try{ 
+        const {userID, status} = req.body;
+        const user = await userModel.findById(userID);
+        user.verificationStatus = status;
+        await user.save();
+        return res.status(200).send("User verified successfully");
+      }catch(err){
+        console.log(err);
+        return res.status(400).send(err.message);
+
+      }
+    }
 };
 
 module.exports = userController;
