@@ -1,0 +1,67 @@
+.approve--button {
+    font-family: Inter, sans-serif;
+    font-size: 27px;
+    border-radius: 40px;
+    border-color: rgba(239, 150, 132, 1);
+    border-style: solid;
+    border-width: 1px;
+    background-color: #43ab32;
+    align-self: center;
+    margin-top: 17px;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 15px 30px;
+    /* width:125px;
+    height:70px; */
+  }
+
+  .reject--button {
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    border-radius: 40px;
+    border-color: rgba(239, 150, 132, 1);
+    border-style: solid;
+    border-width: 1px;
+    background-color: #BC54CD;
+    align-self: center;
+    margin-top: 17px;
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 15px 30px;
+  }
+
+  .user--verification--div {
+    background-color: #d9d9d9;
+    display: flex;
+    width: 400px;
+    max-width: 100%;
+    padding-bottom: 8px;
+    flex-direction: column;
+    align-items: start;
+    color: rgba(0, 0, 0, 0.58);
+    margin: 15px 0 30px 90px;
+    height:390px;
+    padding-left: 10px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .button--div {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: auto;
+    margin-bottom: 30px;
+}
+
+.user--verification--screen--div{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
