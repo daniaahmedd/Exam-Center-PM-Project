@@ -57,7 +57,7 @@ export default function AdminVerification(){
 
                 
                     <h1>Name : <span style={{color:'#262626'}}>{user.name}</span></h1>
-                    <h2>National ID: <span style={{color:'#262626'}}>{user.ID}</span></h2>
+                    <h2>National ID : <span style={{color:'#262626'}}>{user.ID}</span></h2>
                     <h2>Email : <span style={{color:'#262626'}}>{user.email}</span></h2>
                 
                 <div className='button--div'>
@@ -84,7 +84,7 @@ export default function AdminVerification(){
 
             
                 <h1>Name : <span style={{color:'#262626'}}>{user.name}</span></h1>
-                <h2>National ID: <span style={{color:'#262626'}}>{user.ID}</span></h2>
+                <h2>National ID : <span style={{color:'#262626'}}>{user.ID}</span></h2>
                 <h2>Email : <span style={{color:'#262626'}}>{user.email}</span></h2>
                 <h2>Verification Status : <span style={{ color: user.verified === 'Approved' ? '#43ab32' : '#BC54CD' }}>{user.verified}</span></h2>
 

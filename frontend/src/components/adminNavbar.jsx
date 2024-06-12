@@ -1,14 +1,7 @@
 import React from "react";
 import '../App.css';
-import Button from 'react-bootstrap/Button';
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-    const navigate = useNavigate();
-
-    async function handleAddImgClick(){
-        navigate('/addExam')
-    }
 
     return(
         <>
