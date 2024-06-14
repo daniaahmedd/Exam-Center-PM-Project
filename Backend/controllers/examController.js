@@ -1,4 +1,7 @@
 const examModel = require("../Models/examModel");
+const userModel = require("../Models/userModel");
+const sessionModel = require("../Models/sessionModel");
+const examBookingModel = require("../Models/examBookingModel");
 const examProviderModel = require("../Models/examProviderModel");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
@@ -27,55 +30,103 @@ const examController = {
             return res.status(200).send("Exam provider registered successfully");
     },
     addNewExam: async (req, res) => {
-            const { examName, examprovider, foreignerfees, localfees, location, starttime, endtime, examseats } = req.body;
+        const { examName, examprovider, foreignerfees, localfees, location, starttime, endtime, examseats } = req.body;
 
-            const existingExam = await examModel.findOne({ ExamName: examName });
+        const existingExam = await examModel.findOne({ ExamName: examName });
 
-            if (existingExam) {
-                return res.status(409).send("Exam already exists");
-            }
+        if (existingExam) {
+            return res.status(409).send("Exam already exists");
+        }
 
-            const existingProvider = await examProviderModel.findOne({ ExamProviderName: examprovider });
+        const existingProvider = await examProviderModel.findOne({ ExamProviderName: examprovider });
 
-            if (!existingProvider) {
-                return res.status(409).send("This provider doesn't exist");
-            }
+        if (!existingProvider) {
+            return res.status(409).send("This provider doesn't exist");
+        }
 
-            function parseDateString(dateString) {
-                const [date, time] = dateString.split(' ');
-                const [day, month, year] = date.split('/').map(Number);
-                const [hours, minutes, seconds] = time.split(':').map(Number);
-                return new Date(year, month - 1, day, hours, minutes, seconds);
-            }
+        function parseDateString(dateString) {
+            const [date, time] = dateString.split(' ');
+            const [day, month, year] = date.split('/').map(Number);
+            const [hours, minutes, seconds] = time.split(':').map(Number);
+            return new Date(year, month - 1, day, hours, minutes, seconds);
+        }
 
-            const examStartTime = parseDateString(starttime);
-            const examEndTime = parseDateString(endtime);
-            
-            const newExam = new examModel({
-                ExamName: examName,
-                ExamProvider: examprovider,
-                ExamFeesForeigners: foreignerfees,
-                ExamFeesLocals: localfees,
-                ExamLocation: location,
-                ExamStartTime: examStartTime,
-                ExamEndTime: examEndTime,
-                ExamSeats: examseats
-            });
+        const examStartTime = parseDateString(starttime);
+        const examEndTime = parseDateString(endtime);
+        
+        const newExam = new examModel({
+            ExamName: examName,
+            ExamProvider: examprovider,
+            ExamFeesForeigners: foreignerfees,
+            ExamFeesLocals: localfees,
+            ExamLocation: location,
+            ExamStartTime: examStartTime,
+            ExamEndTime: examEndTime,
+            ExamSeats: examseats
+        });
 
-            await newExam.save();
+        await newExam.save();
 
-            return res.status(200).send("Exam added successfully");
+        return res.status(200).send("Exam added successfully");
         
     },
     getExams: async (req, res) => {
         const existingExam = await examModel.find();
 
-        console.log(existingExam)
-
-        return res.status(200).send("Exam added successfully");
+        return res.status(200).json(existingExam);
     },
-    
-    
+    getExam: async (req, res) => {
+        const examid = req.body.examId;
+        const existingExam = await examModel.findById(examid);
+
+        return res.status(200).json(existingExam);
+    },
+    bookExam: async (req, res) => {
+        const { examId } = req.body;
+
+        // mesh hayshta8al delwa2ty 3ashan login mkhlstsh fa b-hardcode any user
+        // const reqCookie = req.headers.cookie;
+        // const searchTerm = 'token=';
+        // const searchIndex = reqCookie.indexOf(searchTerm);
+        // const reqToken = reqCookie.substr(searchIndex + searchTerm.length);
+
+        // const userSession = await sessionModel.find({token: reqToken},{"userId":1,"_id":0});
+
+        const existingExam = await examModel.findOne({ _id: examId });
+        // const loggedInUser = await userModel.findOne({ _id: userSession[0].userId });
+
+        const loggedInUser = await userModel.findOne({ _id: "6669d712b410efe108fe6771" });
+        if (!existingExam) {
+            return res.status(409).send("Exam doesn't exist");
+        }
+
+        // Check if the user has booked the same exam within the last 2 weeks
+        const twoWeeksAgo = new Date();
+        twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+        console.log('here => ', existingExam);
+        const existingBooking = await examBookingModel.findOne({ 
+            UserEmail: loggedInUser.email,
+            ExamName: existingExam.ExamName,
+            createdAt: { $gte: twoWeeksAgo }
+        });
+
+        if (existingBooking) {
+            console.log('here')
+            return res.status(409).send("You have already booked this exam within the last 2 weeks");
+        }
+
+        const newBooking = new examBookingModel({
+            UserEmail: loggedInUser.email,
+            UserName: loggedInUser.UserName,
+            ExamName: existingExam.ExamName,
+            ExamProvider: existingExam.ExamProvider,
+        });
+
+        await newBooking.save();
+
+        return res.status(200).send("Exam booked successfully");
+    },
 }
 
 module.exports = examController;

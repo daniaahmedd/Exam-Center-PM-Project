@@ -89,7 +89,7 @@
 }
 .div-5 {
   background-color: #d9d9d9;
-  display: flex;
+  display: inline-flex;
   width: 354px;
   max-width: 100%;
   padding-bottom: 8px;
@@ -103,6 +103,14 @@
   .div-5 {
     margin-left: 10px;
   }
+}
+
+.navbar-link {
+  font-size: 30px;
+  margin-top: 13px;
+  margin-right: 100px;
+  text-decoration: none;
+  color: #fff;
 }
 .div-6 {
   font-family: Inter, sans-serif;
@@ -139,7 +147,7 @@
   margin: auto 0;
 }
 .div-9 {
-  display: flex;
+  display: contents;
   margin-top: 13px;
   gap: 6px;
   white-space: nowrap;
@@ -206,7 +214,7 @@
 }
 .div-16 {
   display: flex;
-  margin-top: 13px;
+  margin-top: 26px;
   gap: 6px;
   font-size: 24px;
 }
@@ -224,7 +232,7 @@
 }
 .div-18 {
   display: flex;
-  margin-top: 13px;
+  margin-top: 26px;
   gap: 5px;
   font-size: 24px;
 }
@@ -254,6 +262,7 @@
   white-space: nowrap;
   justify-content: center;
   padding: 22px 56px;
+  font-size: large;
 }
 @media (max-width: 991px) {
   .div-20 {

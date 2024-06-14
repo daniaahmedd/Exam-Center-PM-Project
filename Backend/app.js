@@ -37,6 +37,9 @@ app.use('/api/exams', examsRouter);
 const authenticationMiddleware = require("./Middleware/authenticationMiddleware");
 app.use(authenticationMiddleware);
 
+const loggedInUsersRouter = require("./Routes/loggedInUsers");
+app.use('/api/logged/in', loggedInUsersRouter);
+
 
 const db_url = 'mongodb://127.0.0.1:27017/Exam_center';
 
