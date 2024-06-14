@@ -129,4 +129,22 @@ const examController = {
     },
 }
 
+
+
+
+
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const examController = require("./Controllers/examController");
+
+app.use(express.json());
+app.use(cors());
+
+
+app.post("/api/exams/book", examController.bookExam);
+app.get("/api/exams/bookings/:traineeId", examController.getTraineeBookings);
+
+
+
 module.exports = examController;

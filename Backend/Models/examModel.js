@@ -46,8 +46,10 @@ const examschema = new mongoose.Schema(
         },
     },
     {
-        strict: true,
-        timestamps: true,
+       
+  
+  
+  
     }
 );
 
