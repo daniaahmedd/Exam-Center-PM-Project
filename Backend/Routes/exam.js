@@ -12,6 +12,7 @@ router.post("/new/examcenter", examController.addNewExam);
 // * Get all exams
 router.post("/getExams", examController.getExams);
 
+
 // * Get exam by id
 router.post("/getExam", examController.getExam);
 
@@ -19,8 +20,7 @@ router.post("/getExam", examController.getExam);
 router.post("/bookExam", examController.bookExam);
 
 
-const express = require('express');
-const router = express.Router();
+
 const Exam = require('../models/exam');
 const Trainee = require('../models/trainee');
 

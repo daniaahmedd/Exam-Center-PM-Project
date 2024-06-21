@@ -116,6 +116,12 @@ const examController = {
             return res.status(409).send("You have already booked this exam within the last 2 weeks");
         }
 
+        if (existingExam.ExamSeats <= 0) {
+            return res.status(400).send("No seats available");
+        }
+
+        existingExam.ExamSeats -= 1;
+
         const newBooking = new examBookingModel({
             UserEmail: loggedInUser.email,
             UserName: loggedInUser.UserName,
@@ -127,6 +133,19 @@ const examController = {
 
         return res.status(200).send("Exam booked successfully");
     },
+
+    checkAvailableSeats: async (req, res) => {
+        const { examName } = req.params;
+
+        const exam = await examModel.findOne({ ExamName: examName });
+
+        if (!exam) {
+            return res.status(404).send("Exam not found");
+        }
+
+        return res.status(200).json({ availableSeats: exam.ExamSeats });
+    },
+
 }
 
 
