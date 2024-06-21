@@ -19,6 +19,7 @@ router.post("/getExam", examController.getExam);
 // * Book an exam
 router.post("/bookExam", examController.bookExam);
 
+router.get('/exam/:examName/seats', examController.checkAvailableSeats);
 
 
 const Exam = require('../models/exam');
