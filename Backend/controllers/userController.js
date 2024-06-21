@@ -285,17 +285,16 @@ const userController = {
     }
 };
 
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const userController = require("./Controllers/userController");
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
 
-app.use(express.json());
-app.use(cors());
+// app.use(express.json());
+// app.use(cors());
 
 
-app.post("/api/users/book-exam", userController.bookExam);
-app.get("/api/users/bookings/:traineeId", userController.getTraineeBookings);
+// app.post("/api/users/book-exam", userController.bookExam);
+// app.get("/api/users/bookings/:traineeId", userController.getTraineeBookings);
 
 
 

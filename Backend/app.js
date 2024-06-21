@@ -42,12 +42,12 @@ app.use('/api/exams', examsRouter);
 const loggedInUsersRouter = require("./Routes/loggedInUsers");
 app.use('/api/logged/in', loggedInUsersRouter);
 
-const traineeRouter = require('./routes/trainee');
-app.use('/api/trainees', traineeRouter);
+// const traineeRouter = require('./routes/trainee');
+// app.use('/api/trainees', traineeRouter);
 
 // Add the reschedule exam route
-const rescheduleRouter = require('./routes/reschedule');
-app.use('/api/exams', rescheduleRouter);
+// const rescheduleRouter = require('./routes/reschedule');
+// app.use('/api/exams', rescheduleRouter);
 
 const authenticationMiddleware = require("./Middleware/authenticationMiddleware");
 app.use(authenticationMiddleware);
@@ -78,9 +78,8 @@ app.listen(process.env.PORT, () => console.log(`server started and listening on 
 
 
 
-const express = require("express");
 const router = express.Router();
-const Exam = require("../models/exam"); 
+const Exam = require("./Models/examModel"); 
 
 
 

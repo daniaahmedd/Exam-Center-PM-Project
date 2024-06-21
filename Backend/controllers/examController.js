@@ -115,12 +115,14 @@ const examController = {
             console.log('here')
             return res.status(409).send("You have already booked this exam within the last 2 weeks");
         }
-
+        console.log('exam seat =>',existingExam.ExamSeats);
         if (existingExam.ExamSeats <= 0) {
             return res.status(400).send("No seats available");
         }
 
         existingExam.ExamSeats -= 1;
+
+        await existingExam.save();
 
         const newBooking = new examBookingModel({
             UserEmail: loggedInUser.email,
@@ -155,14 +157,13 @@ const examController = {
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const examController = require("./Controllers/examController");
 
 app.use(express.json());
 app.use(cors());
 
 
-app.post("/api/exams/book", examController.bookExam);
-app.get("/api/exams/bookings/:traineeId", examController.getTraineeBookings);
+// app.post("/api/exams/book", examController.bookExam);
+// app.get("/api/exams/bookings/:traineeId", examController.getTraineeBookings);
 
 
 

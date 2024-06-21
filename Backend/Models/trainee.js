@@ -14,9 +14,6 @@ const Trainee = mongoose.model('Trainee', traineeSchema);
 
 module.exports = Trainee;
 
-
-const mongoose = require('mongoose');
-
 const examSchema = new mongoose.Schema({
   // Existing exam fields
   traineeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Trainee', required: true },

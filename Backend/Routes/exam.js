@@ -22,8 +22,8 @@ router.post("/bookExam", examController.bookExam);
 router.get('/exam/:examName/seats', examController.checkAvailableSeats);
 
 
-const Exam = require('../models/exam');
-const Trainee = require('../models/trainee');
+const Exam = require('../Models/examModel');
+const Trainee = require('../Models/trainee');
 
 // Define acceptable reasons for rescheduling
 const acceptableReasons = ['Medical Emergency', 'Family Emergency', 'Work Conflict', 'Other'];
@@ -135,12 +135,6 @@ router.post('/reschedule', async (req, res) => {
 
 module.exports = router;
 
-const express = require("express");
-
-const examController = require("../controllers/examController");
-const authorizationMiddleware = require('../Middleware/authorizationMiddleware');
-
-
 router.post("/examprovider", examController.addProvider);
 
 
@@ -150,10 +144,10 @@ router.post("/new/examcenter", examController.addNewExam);
 router.post("/getExams", examController.getExams);
 
 
-router.post("/book-exam", authorizationMiddleware, examController.bookExam);
+// router.post("/book-exam", authorizationMiddleware, examController.bookExam);
 
 
-router.get("/trainee-bookings", authorizationMiddleware, examController.getTraineeBookings);
+// router.get("/trainee-bookings", authorizationMiddleware, examController.getTraineeBookings);
 
 module.exports = router;
 
