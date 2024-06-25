@@ -14,24 +14,90 @@ const Exams = () => {
                 withCredentials: true
             });
             setExams(response.data);
+       
         } catch (error) {
             console.error("Error fetching exams:", error);
         }
     }
 
+  
+
     const navigateVerify = (examId) => {
         navigate(`/verifyUser/${examId}`);
     };
 
+    const navigateToExamTimings = (examDetails) => {
+        navigate('/exam-timings', { state: { examDetails } });
+      };
+
     useEffect(() => {
         getExams();
+        setExams([
+            {
+              ExamName: "Software Engineering Fundamentals",
+              ExamProvider: "Tech University",
+              ExamFeesForeigners: "200",
+              ExamFeesLocals: "150",
+              ExamLocation: "Online",
+              ExamTimes: [
+                {
+                  ExamStartTime: new Date("2023-05-15T09:00:00Z"),
+                  ExamEndTime: new Date("2023-05-15T12:00:00Z")
+                },
+                {
+                  ExamStartTime: new Date("2023-05-16T09:00:00Z"),
+                  ExamEndTime: new Date("2023-05-16T12:00:00Z")
+                }
+              ],
+              ExamSeats: 50,
+              isAvailable: true
+            },
+            {
+              ExamName: "Data Structures and Algorithms",
+              ExamProvider: "Code Academy",
+              ExamFeesForeigners: "250",
+              ExamFeesLocals: "200",
+              ExamLocation: "Campus A",
+              ExamTimes: [
+                {
+                  ExamStartTime: new Date("2023-06-20T10:00:00Z"),
+                  ExamEndTime: new Date("2023-06-20T13:00:00Z")
+                },
+                {
+                  ExamStartTime: new Date("2023-06-21T10:00:00Z"),
+                  ExamEndTime: new Date("2023-06-21T13:00:00Z")
+                }
+              ],
+              ExamSeats: 30,
+              isAvailable: true
+            },
+            {
+              ExamName: "Introduction to Cybersecurity",
+              ExamProvider: "Global Institute",
+              ExamFeesForeigners: "300",
+              ExamFeesLocals: "250",
+              ExamLocation: "Campus B",
+              ExamTimes: [
+                {
+                  ExamStartTime: new Date("2023-07-25T14:00:00Z"),
+                  ExamEndTime: new Date("2023-07-25T17:00:00Z")
+                },
+                {
+                  ExamStartTime: new Date("2023-07-26T14:00:00Z"),
+                  ExamEndTime: new Date("2023-07-26T17:00:00Z")
+                }
+              ],
+              ExamSeats: 40,
+              isAvailable: false
+            }
+          ])
     }, []); // Fetch exams only once when the component mounts
 
     return (
         <>
             {exams.map((exam) => {
                 return (
-                    <div className="div-5" key={exam._id}>
+                    <div className="div-5" key={exam._id} onClick={() => navigateToExamTimings(exam) } >                   
                         <div className="div-6">
                             {exam.ExamName}
                         </div>
@@ -60,7 +126,7 @@ const Exams = () => {
                                         {exam.ExamLocation}
                                     </div>
                                 </div>
-                                <div className="div-16">
+                                {/* <div className="div-16">
                                     <img
                                         loading="lazy"
                                         src="clock.png"
@@ -84,7 +150,7 @@ const Exams = () => {
                                     onClick={() => navigateVerify(exam._id)}
                                 >
                                     Reserve
-                                </Button>
+                                </Button> */}
                             </div>
                         </div>
                     </div>

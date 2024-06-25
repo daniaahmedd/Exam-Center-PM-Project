@@ -6,6 +6,7 @@ import VerifyUser from "./pages/VerifyUser";
 import AdminVerification from "./pages/adminVerification";
 import Login from "./pages/reg";
 import './App.css';
+import ExamTimings from "./pages/examTimings";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/verifyUser/:examId" element={<VerifyUser />} />
         <Route path="/adminVerification" element={<AdminVerification />} />
+        <Route path='/exam-timings' element={<ExamTimings />} /> 
       </Routes>
     </>
   );

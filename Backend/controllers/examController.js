@@ -30,7 +30,9 @@ const examController = {
             return res.status(200).send("Exam provider registered successfully");
     },
     addNewExam: async (req, res) => {
-        const { examName, examprovider, foreignerfees, localfees, location, starttime, endtime, examseats } = req.body;
+        const { examName, examprovider, foreignerfees, localfees, location, ExamTimes,
+           // starttime, endtime,
+             examseats } = req.body;
 
         const existingExam = await examModel.findOne({ ExamName: examName });
 
@@ -51,8 +53,9 @@ const examController = {
             return new Date(year, month - 1, day, hours, minutes, seconds);
         }
 
-        const examStartTime = parseDateString(starttime);
-        const examEndTime = parseDateString(endtime);
+        // const examStartTime = parseDateString(starttime);
+        // const examEndTime = parseDateString(endtime);
+        const examTimes = ExamTimes.map(date => {parseDateString(date.ExamStartTime), parseDateString(date.ExamEndTime) });  
         
         const newExam = new examModel({
             ExamName: examName,
@@ -60,8 +63,9 @@ const examController = {
             ExamFeesForeigners: foreignerfees,
             ExamFeesLocals: localfees,
             ExamLocation: location,
-            ExamStartTime: examStartTime,
-            ExamEndTime: examEndTime,
+            // ExamStartTime: examStartTime,
+            // ExamEndTime: examEndTime,
+            ExamTimes: examTimes,
             ExamSeats: examseats
         });
 
