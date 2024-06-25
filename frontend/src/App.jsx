@@ -8,6 +8,7 @@ import Reschedule from "./pages/rescheduleExam";
 import Login from "./pages/reg";
 import UserBookings from "./components/userBookings";
 import './App.css';
+import ExamTimings from "./pages/examTimings";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/adminVerification" element={<AdminVerification />} />
         <Route path="/userBookings/:username" element={<UserBookings />} />
         <Route path="/reschedule/:examId" element={<Reschedule />} />
+        <Route path='/exam-timings' element={<ExamTimings />} /> 
       </Routes>
     </>
   );

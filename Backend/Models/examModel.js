@@ -24,16 +24,30 @@ const examschema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        ExamStartTime: {
-            type: Date,
-            required: true,
-            default: Date.now()
-        },
-        ExamEndTime: {
-            type: Date,
-            required: true,
-            default: Date.now()
-        },
+        ExamTimes : [
+            {
+                ExamStartTime: {
+                    type: Date,
+                    required: true,
+                    default: Date.now()
+                },
+                ExamEndTime: {
+                    type: Date,
+                    required: true,
+                    default: Date.now()
+            }
+        }
+        ],
+        // ExamStartTime: {
+        //     type: Date,
+        //     required: true,
+        //     default: Date.now()
+        // },
+        // ExamEndTime: {
+        //     type: Date,
+        //     required: true,
+        //     default: Date.now()
+        // },
         ExamSeats: {
             type: Number,
             required: true,
