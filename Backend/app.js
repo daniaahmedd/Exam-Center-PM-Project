@@ -26,17 +26,11 @@ const io = socketIO(server, {
 }).listen(4000);
 module.exports = { io };
 
-
-
-
-
-
-
 // Import routes
 const usersRouter = require("./Routes/user");
 app.use('/api/users', usersRouter);
 
-const examsRouter = require("./Routes/exam");
+const examsRouter = require("./routes/exam");
 app.use('/api/exams', examsRouter);
 
 const loggedInUsersRouter = require("./Routes/loggedInUsers");

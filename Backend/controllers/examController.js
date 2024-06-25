@@ -129,13 +129,15 @@ const examController = {
             UserName: loggedInUser.UserName,
             ExamName: existingExam.ExamName,
             ExamProvider: existingExam.ExamProvider,
+            ExamStartTime: existingExam.ExamStartTime,
+            ExamEndTime: existingExam.ExamEndTime,
+            ExamId: examId,
         });
 
         await newBooking.save();
 
         return res.status(200).send("Exam booked successfully");
     },
-
     checkAvailableSeats: async (req, res) => {
         const { examName } = req.params;
 
@@ -146,6 +148,23 @@ const examController = {
         }
 
         return res.status(200).json({ availableSeats: exam.ExamSeats });
+    },
+    getUserBooking: async (req, res) => {
+        const { username } = req.params;
+
+        const exam = await examBookingModel.find({ UserName: username });
+
+        if (!exam) {
+            return res.status(404).send("Exam not found");
+        }
+
+        return res.status(200).json({ exam: exam });
+    },
+    getExamByName: async (req, res) => {
+        const examname = req.body.examName;
+        const existingExam = await examModel.find({ExamName: examname});
+
+        return res.status(200).json(existingExam);
     },
 
 }

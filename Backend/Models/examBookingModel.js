@@ -21,6 +21,21 @@ const examBookingschema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        ExamStartTime: {
+            type: Date,
+            required: true,
+            default: Date.now()
+        },
+        ExamEndTime: {
+            type: Date,
+            required: true,
+            default: Date.now()
+        },
+        ExamId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'examModel'
+        },
     },
     {
         strict: true,

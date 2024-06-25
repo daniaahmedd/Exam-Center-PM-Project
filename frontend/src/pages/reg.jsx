@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import * as Components from "../components/loginComponent";
 import Navbar from "../components/navbar";
+import '../App.css';
 
 function Login() {
-  const [signIn, toggle] = React.useState(true);
+  const [signIn, toggle] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [user, setUser] = useState(null);
+
+  const handleSignInSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/users/login', {
+        email,
+        password,
+      }, {
+        withCredentials: true
+      });
+      console.log(response.data.message)
+      setMessage(response.data.message);
+      setUser(response.data.actualUser);
+      // Optionally, you can store the token in localStorage or context for further usage
+      localStorage.setItem('token', response.data.token);
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Error logging in');
+    }
+  };
+
   return (
     <>
-      <Navbar style={{position: 'relative', zIndex: '100000'}}/>
-      <Components.Container style={{marginTop: "-42px"}}>
+      <Navbar style={{ position: 'relative', zIndex: '100000' }} />
+      <Components.Container style={{ marginTop: "-42px" }}>
         <Components.SignUpContainer signingin={signIn.toString()}>
           <Components.Form>
             <Components.Title>Create Account</Components.Title>
@@ -18,12 +45,24 @@ function Login() {
           </Components.Form>
         </Components.SignUpContainer>
         <Components.SignInContainer signingIn={signIn}>
-          <Components.Form>
+          <Components.Form onSubmit={handleSignInSubmit}>
             <Components.Title>Sign in</Components.Title>
-            <Components.Input type="email" placeholder="Email" />
-            <Components.Input type="password" placeholder="Password" />
+            <Components.Input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Components.Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
             <Components.Anchor href="#">Forgot your password?</Components.Anchor>
-            <Components.Button>Sign In</Components.Button>
+            <Components.Button type="submit">Sign In</Components.Button>
           </Components.Form>
         </Components.SignInContainer>
         <Components.OverlayContainer signingIn={signIn}>
@@ -49,6 +88,12 @@ function Login() {
           </Components.Overlay>
         </Components.OverlayContainer>
       </Components.Container>
+      {message && (
+        <div className="message">
+          <p>{message}</p>
+          {user && <p>Welcome, {user.name}!</p>}
+        </div>
+      )}
     </>
   );
 }

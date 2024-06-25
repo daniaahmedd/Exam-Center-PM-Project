@@ -269,7 +269,6 @@ const userController = {
         res.status(500).json({ message: "Server error" });
       }
     },
-
     verifyUser: async (req, res) => { //to update the registered user verification status
       try{ 
         const {userID, status} = req.body;
@@ -282,8 +281,61 @@ const userController = {
         return res.status(400).send(err.message);
 
       }
+    },
+    login: async (req, res) => {
+      try {
+        const { email, password } = req.body;
+  
+        const user = await userModel.findOne({ email });
+        if (!user) {
+          return res.status(404).json({ message: "email not found" });
+        }
+
+        const userPass = await userModel.find({"email": actualUserEmail},{"password":1,"_id":0});
+        console.log("userPass",userPass)
+
+        if (!(userPass[0].password == password)) {
+          return res.status(405).send("incorect password");
+        }
+  
+        const currentDateTime = new Date();
+        const tims = currentDateTime.setFullYear(currentDateTime.getFullYear() + 1);; // expire in 3 minutes
+        const expiresAt = new Date(tims); // expire in 3 minutes
+
+        const userId = await userModel.find({"email": email},{"_id":1});
+        const userType = await userModel.find({"email": email},{"userType":1,"_id":0});
+
+        const token = jwt.sign(
+          { user: { userId: userId[0]._id, userType: userType[0].userType } },
+          secretKey,
+          {
+            expiresIn: 365 * 24 * 60,
+          }
+        );
+        let newSession = new sessionModel({
+          userId: userId[0]._id,
+          token,
+          expiresAt: expiresAt,
+        });
+        await newSession.save();
+        const actualUser = await userModel.find({"email": actualUserEmail});
+        console.log(expiresAt);
+        return res
+          .cookie("token", token, {
+            expires: expiresAt,
+            withCredentials: true,
+            httpOnly: false,
+            SameSite:'none'
+          })
+          .status(200)
+          .json({ message: "login successfull", actualUser, token});
+        }catch(err){
+          console.log(err);
+          return res.status(400).send(err.message);
+  
+        }
     }
-};
+}
 
 // const express = require("express");
 // const app = express();

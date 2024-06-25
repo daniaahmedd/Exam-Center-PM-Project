@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const examController = require("../controllers/examController");
 const authorizationMiddleware=require('../Middleware/authorizationMiddleware')
+const examBookingModel = require("../Models/examBookingModel");
 
 // * Add new exam provider
 router.post("/examprovider", examController.addProvider);
@@ -16,8 +17,14 @@ router.post("/getExams", examController.getExams);
 // * Get exam by id
 router.post("/getExam", examController.getExam);
 
+// * Get exam by name
+router.post("/getExamByName", examController.getExamByName);
+
 // * Book an exam
 router.post("/bookExam", examController.bookExam);
+
+// * Book an exam
+router.post("/getUserBooking/:username", examController.getUserBooking);
 
 router.get('/exam/:examName/seats', examController.checkAvailableSeats);
 
@@ -38,7 +45,8 @@ const rescheduleFees = {
 // POST endpoint to reschedule an exam
 router.post('/reschedule', async (req, res) => {
   try {
-    const { examId, newDate, reason } = req.body;
+    const { examId } = req.body; // Use req.body to get examId
+    const { newDate, reason } = req.body;
 
     // Validate reason
     if (!acceptableReasons.includes(reason)) {
@@ -48,14 +56,20 @@ router.post('/reschedule', async (req, res) => {
     // Calculate rescheduling fee
     const fee = rescheduleFees[reason];
 
-    // Find the exam
-    const exam = await Exam.findById(examId);
+    // Find the exam booking
+    const exam = await examBookingModel.findOne({ ExamId: examId }); // Use findOne instead of find
     if (!exam) {
       return res.status(404).json({ message: 'Exam not found' });
     }
 
+    // Calculate the difference between ExamStartTime and ExamEndTime
+    const startTime = new Date(exam.ExamStartTime);
+    const endTime = new Date(exam.ExamEndTime);
+    const timeDifference = endTime - startTime;
+
     // Update exam with rescheduling details
-    exam.examDate = newDate;
+    exam.ExamStartTime = new Date(newDate);
+    exam.ExamEndTime = new Date(new Date(newDate).getTime() + timeDifference); // Maintain the time difference
     exam.rescheduled = true;
     exam.rescheduleReason = reason;
     exam.rescheduleFee = fee;
@@ -67,14 +81,9 @@ router.post('/reschedule', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error rescheduling exam', error });
   }
+});
 
 
-
-
-
-
-
-  
   // POST endpoint to create a new trainee
   router.post('/', async (req, res) => {
     try {
@@ -131,7 +140,6 @@ router.post('/reschedule', async (req, res) => {
 
 
 
-});
 
 module.exports = router;
 
@@ -148,11 +156,5 @@ router.post("/getExams", examController.getExams);
 
 
 // router.get("/trainee-bookings", authorizationMiddleware, examController.getTraineeBookings);
-
-module.exports = router;
-
-
-
-
 
 module.exports = router;
